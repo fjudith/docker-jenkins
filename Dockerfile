@@ -1,5 +1,5 @@
 FROM jenkins:2.19.2
-#FROM jenkins:1.609.1
+
 MAINTAINER Florian JUDITH <florian.judith.b@gmail.com>
 
 # Set default options

@@ -32,7 +32,7 @@ VOLUME /var/log/jenkins
 ```
 
 # Docker-Compose
-In production environment, it recommended to pair Jenkins with a Ngin fronted webserver.
+In production environment, it recommended to pair Jenkins with a Nginx fronted webserver.
 
 ```
 jenkins-nginx:
