@@ -1,4 +1,4 @@
-FROM jenkins:2.19.2
+FROM jenkins/jenkins:lts
 
 MAINTAINER Florian JUDITH <florian.judith.b@gmail.com>
 
