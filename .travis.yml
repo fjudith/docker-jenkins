@@ -32,10 +32,10 @@ script:
   # Wait for Jenkins to start
   - sleep 5
   - docker logs jenkins
+  - docker logs jenkins-nginx
   # -i, --include – include protocol headers in the output (H/F)
   # -X, --request – specify request  COMMAND (GET, PUT, DELETE…)  to use
-  - curl -i http://localhost:32701
-
+  - docker exec --user root 'jenkins-nginx'curl -i http://localhost:32701
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
