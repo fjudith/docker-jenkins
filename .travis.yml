@@ -35,7 +35,7 @@ script:
   - docker logs jenkins-nginx
   # -i, --include – include protocol headers in the output (H/F)
   # -L, --follow – specify request  COMMAND (GET, PUT, DELETE…)  to use
-  - docker run busybox /bin/bash --link jenkins-nginx:nginx -c "http://nginx:80"
+  - docker run phusion/baseimage /bin/bash --link jenkins-nginx:nginx -c "http://nginx:80"
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
