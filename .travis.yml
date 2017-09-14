@@ -1,7 +1,7 @@
 env:
   global:
   # Docker Repository
-  - REPO=fjudith/limesurvey
+  - REPO=fjudith/jenkins
   # Compute docker tag
   - TAG=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "latest"; else echo ${TRAVIS_BRANCH} ; fi`
   - NGINX=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "nginx"; else echo ${TRAVIS_BRANCH}-nginx ; fi`
