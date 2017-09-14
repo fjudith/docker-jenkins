@@ -21,6 +21,8 @@ before_install:
   # Jenkins build
   - docker build -f Dockerfile -t $REPO:$TAG .
   - docker run --name 'jenkins' -d $REPO:$TAG
+  # Wait for Jenkins to start
+  - sleep 10
   # Nginx build
   - docker build -f nginx/Dockerfile -t $REPO:$NGINX nginx/
   - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins-master -p 32701:8080 $REPO:$NGINX
