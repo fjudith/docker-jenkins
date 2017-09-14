@@ -22,7 +22,7 @@ before_install:
   - docker build -f Dockerfile -t $REPO:$TAG .
   - docker run --name 'jenkins' -d $REPO:$TAG
   # Nginx build
-  - docker build -f fpm/nginx/Dockerfile -t $REPO:$NGINX fpm/nginx/
+  - docker build -f nginx/Dockerfile -t $REPO:$NGINX fpm/nginx/
   - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins-master -p 32701:8080 $REPO:$NGINX
   - docker ps -a
 
