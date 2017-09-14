@@ -38,7 +38,7 @@ script:
   # -L, --follow – specify request  COMMAND (GET, PUT, DELETE…)  to use
   - docker run --rm --link jenkins-nginx:nginx phusion/baseimage /bin/bash -c "curl -i -L http://nginx:80"
 
-  after_success:
+after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
