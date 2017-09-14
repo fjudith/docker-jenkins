@@ -35,7 +35,7 @@ script:
   - docker logs jenkins-nginx
   # -i, --include – include protocol headers in the output (H/F)
   # -X, --request – specify request  COMMAND (GET, PUT, DELETE…)  to use
-  - ss -an && docker exec --user root 'jenkins-nginx' /bin/bash -c "curl -i http://localhost:80"
+  - docker exec --user root 'jenkins-nginx' /bin/bash -c "ss -an && curl -i http://localhost:80"
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
