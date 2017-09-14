@@ -1,3 +1,6 @@
+[![](https://images.microbadger.com/badges/image/fjudith/jenkins.svg)](https://microbadger.com/images/fjudith/jenkins "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/fjudith/docker-jenkins.svg?branch=master)](https://travis-ci.org/fjudith/docker-jenkins)
+
 # Introduction
 
 The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
