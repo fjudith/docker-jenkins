@@ -43,7 +43,6 @@ after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO:$TAG
   - docker tag $REPO:$COMMIT-nginx $REPO:$NGINX
-  - docker tag $REPO:$COMMIT-nginx $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO:$NGINX
+  - docker tag $REPO:$COMMIT-nginx $REPO:travis-$TRAVIS_BUILD_NUMBER-nginx
+  - docker push $REPO
