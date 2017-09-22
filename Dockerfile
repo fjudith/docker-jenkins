@@ -12,6 +12,9 @@ ENV JENKINS_OPTS="--handlerCountMax=300"
 # Enable access log
 ENV JENKINS_ACCESSLOG="--accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access.log"
 
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
 # Create Jenkins Log Folder
 USER root
 RUN mkdir -p /var/log/jenkins
