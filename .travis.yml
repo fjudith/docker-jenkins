@@ -25,7 +25,7 @@ before_install:
   - sleep 20
   # Nginx build
   - docker build -f nginx/Dockerfile -t $REPO:$COMMIT-nginx nginx/
-  - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins-master -p 32701:8080 $REPO:$COMMIT-nginx
+  - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins -p 32701:8080 $REPO:$COMMIT-nginx
   - docker ps -a
 
 
