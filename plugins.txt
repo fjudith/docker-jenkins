@@ -42,3 +42,4 @@ ssh-slaves
 timestamper
 travis-yml
 ws-cleanup
+greenballs
