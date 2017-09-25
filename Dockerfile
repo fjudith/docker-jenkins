@@ -1,6 +1,6 @@
 FROM jenkins/jenkins:lts
 
-MAINTAINER Florian JUDITH <florian.judith.b@gmail.com>
+LABEL maintainer="Florian JUDITH <florian.judith.b@gmail.com>"
 
 # Set default options
 # http://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html

@@ -1,6 +1,6 @@
 FROM nginx:stable
 
-MAINTAINER Florian JUDITH <florian.judith.b@gmail.com>
+LABEL maintainer="Florian JUDITH <florian.judith.b@gmail.com>"
 
 RUN rm -f /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/conf.d/example_ssl.conf
