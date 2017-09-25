@@ -31,7 +31,7 @@ before_install:
   - sleep 20
   # slave build
   - docker build -f slave/Dockerfile -t $REPO:$COMMIT-slave slave/
-  - docker run --name 'jenkins-slave' -d --link jenkins:jenkins -e JENKINS_URL=http://jenkins:8080
+  - docker run --name 'jenkins-slave' -d --link jenkins:jenkins -e JENKINS_URL=http://jenkins:8080 $REPO:$COMMIT-slave
   - docker ps -a
 
 script:
