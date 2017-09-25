@@ -5,6 +5,7 @@ env:
   # Compute docker tag
   - TAG=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "latest"; else echo ${TRAVIS_BRANCH} ; fi`
   - NGINX=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "nginx"; else echo ${TRAVIS_BRANCH}-nginx ; fi`
+  - NGINX=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "slave"; else echo ${TRAVIS_BRANCH}-slave ; fi`
   # Retreive commit ID
   - COMMIT=${TRAVIS_COMMIT::8}
   - secure: "BsJ6wbCV4PZPqRyZIGFdHMmbJhIzQgxyiqE8YIXQ5Z/l2Mu/TYuGxqgA/FCvQh76QV0NpA72ZAjbZ4obAgCF8zZAHnPL7BQZ6SpagTxjSgeycrp7ludN5cvofkb9Fm495VB+Tp9ufZ0L5YroQNVvQIv2lbqslwYn7SLRaAXFY0OsJgM/XThXQCDQUsSerOW5GmNkl3N+erFM5JDv+uXjB11VMfDiTC8NW+OgPEUPfK5p1NELMEmL0MNW5gI1UCVqdlxKXTvsADmvF21MIFCMDBT/q5gt2UakfoXQNZe63rpnNhRuoCxoqMUhjoW5YM65CT2QB7TLPQH+RcmSB+QzABqr0ob/TgzmCuzfuPbeR5M9KiRB9/Xfy36SdXCcKJRhKflkncfx5QT0otR/svig9CyLotIUouFcU/Fu1oOWUjVdYxKX6pnFNBeaZev1Iap4mb05CmBik9nSIExGOvLOoMGY9Vvua30P84VHed2velXReQGWG8hRUOX5R/Rb/174+RlXpzkzVoijct/Up3KJSdPceQlNVGk1tdBPr8btOFmVR4rUuUbgTJRoJSa1eV3OswlNxwDAH7U2LmlNBJHxYNrQN747072f7y+6zOLxcsMvrH617u+hiOkxsQxvAbatzxiNh87xbzEqPSJLl6KYe1oc8vkxCJEh0l2D97j6mtM="
@@ -26,14 +27,19 @@ before_install:
   # Nginx build
   - docker build -f nginx/Dockerfile -t $REPO:$COMMIT-nginx nginx/
   - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins -p 32701:8080 $REPO:$COMMIT-nginx
+  # Wait for Nginx to start
+  - sleep 20
+  # slave build
+  - docker build -f slave/Dockerfile -t $REPO:$COMMIT-slave slave/
+  - docker run --name 'jenkins-slave' -d --link jenkins:jenkins -e JENKINS_URL=http://jenkins:8080
   - docker ps -a
-
 
 script:
   # Wait for Jenkins to start
   - sleep 5
   - docker logs jenkins
   - docker logs jenkins-nginx
+  - docker logs jenkins-slave
   # -i, --include – include protocol headers in the output (H/F)
   # -L, --follow – specify request  COMMAND (GET, PUT, DELETE…)  to use
   - docker run --rm --link jenkins-nginx:nginx phusion/baseimage /bin/bash -c "curl -i -L http://nginx:80"
@@ -45,4 +51,6 @@ after_success:
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker tag $REPO:$COMMIT-nginx $REPO:$NGINX
   - docker tag $REPO:$COMMIT-nginx $REPO:travis-$TRAVIS_BUILD_NUMBER-nginx
+  - docker tag $REPO:$COMMIT-nginx $REPO:$SLAVE
+  - docker tag $REPO:$COMMIT-nginx $REPO:travis-$TRAVIS_BUILD_NUMBER-slave
   - docker push $REPO
