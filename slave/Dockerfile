@@ -61,8 +61,12 @@ RUN wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/
 # Install Docker
 ENV DOCKER_VERSION=1.12.6
 ENV DOCKER_COMPOSE_VERSION=1.16.1
-RUN curl -fsSL https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION.tgz | tar --strip-components=1 -xz -C /usr/local/bin docker/docker
-RUN curl -fsSL https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+
+RUN curl -fsSL https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION.tgz | tar --strip-components=1 -xz -C /usr/local/bin docker/docker \
+    && curl -fsSL https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    && groupadd docker \
+    && usermod -aG docker jenkins
 
 # Install JMETER
 ENV JMETER_VERSION=3.1
