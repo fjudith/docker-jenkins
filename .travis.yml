@@ -21,17 +21,17 @@ services:
 before_install:
   # Jenkins build
   - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker run --name 'jenkins' -d $REPO:$COMMIT
+  - docker run -d --name 'jenkins' $REPO:$COMMIT
   # Wait for Jenkins to start
   - sleep 20
   # Nginx build
   - docker build -f nginx/Dockerfile -t $REPO:$COMMIT-nginx nginx/
-  - docker run --name 'jenkins-nginx' -d --link jenkins:jenkins -p 32701:8080 $REPO:$COMMIT-nginx
+  - docker run -d --name 'jenkins-nginx' --link jenkins:jenkins -p 32701:8080 $REPO:$COMMIT-nginx
   # Wait for Nginx to start
   - sleep 20
-  # slave build
+  # Jenkins Slave build
   - docker build -f slave/Dockerfile -t $REPO:$COMMIT-slave slave/
-  - docker run --name 'jenkins-slave' -d --link jenkins:jenkins -e JENKINS_URL=http://jenkins:8080 $REPO:$COMMIT-slave
+  - docker run -d --name 'jenkins-slave'  --link jenkins:jenkins -e JENKINS_URL=http://jenkins:8080 -e JENKINS_SECRET=F41lur33xp3ct3 -e JENKINS_AGENT_NAME=slave1 $REPO:$COMMIT-slave
   - docker ps -a
 
 script:
