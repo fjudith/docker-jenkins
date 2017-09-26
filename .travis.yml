@@ -5,7 +5,7 @@ env:
   # Compute docker tag
   - TAG=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "latest"; else echo ${TRAVIS_BRANCH} ; fi`
   - NGINX=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "nginx"; else echo ${TRAVIS_BRANCH}-nginx ; fi`
-  - NGINX=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "slave"; else echo ${TRAVIS_BRANCH}-slave ; fi`
+  - SLAVE=`if [ "${TRAVIS_BRANCH}" == "master" ]; then echo "slave"; else echo ${TRAVIS_BRANCH}-slave ; fi`
   # Retreive commit ID
   - COMMIT=${TRAVIS_COMMIT::8}
   - secure: "BsJ6wbCV4PZPqRyZIGFdHMmbJhIzQgxyiqE8YIXQ5Z/l2Mu/TYuGxqgA/FCvQh76QV0NpA72ZAjbZ4obAgCF8zZAHnPL7BQZ6SpagTxjSgeycrp7ludN5cvofkb9Fm495VB+Tp9ufZ0L5YroQNVvQIv2lbqslwYn7SLRaAXFY0OsJgM/XThXQCDQUsSerOW5GmNkl3N+erFM5JDv+uXjB11VMfDiTC8NW+OgPEUPfK5p1NELMEmL0MNW5gI1UCVqdlxKXTvsADmvF21MIFCMDBT/q5gt2UakfoXQNZe63rpnNhRuoCxoqMUhjoW5YM65CT2QB7TLPQH+RcmSB+QzABqr0ob/TgzmCuzfuPbeR5M9KiRB9/Xfy36SdXCcKJRhKflkncfx5QT0otR/svig9CyLotIUouFcU/Fu1oOWUjVdYxKX6pnFNBeaZev1Iap4mb05CmBik9nSIExGOvLOoMGY9Vvua30P84VHed2velXReQGWG8hRUOX5R/Rb/174+RlXpzkzVoijct/Up3KJSdPceQlNVGk1tdBPr8btOFmVR4rUuUbgTJRoJSa1eV3OswlNxwDAH7U2LmlNBJHxYNrQN747072f7y+6zOLxcsMvrH617u+hiOkxsQxvAbatzxiNh87xbzEqPSJLl6KYe1oc8vkxCJEh0l2D97j6mtM="
