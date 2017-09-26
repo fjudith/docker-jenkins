@@ -1,3 +1,5 @@
+// https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/Syntax-Reference
+//
 pipeline {
     agent any
     environment {
