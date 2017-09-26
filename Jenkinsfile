@@ -53,11 +53,19 @@ pipeline {
                 }
             }
         }
-        stage ('Test') {
-            steps {
-                echo 'Deploying...'
-                sh "docker tag ${REPO}:${GIT_COMMIT} ${REPO}:${TAG}"
-                sh "docker images"
+        post {
+            // 'always' means... Well... always run.
+            always {
+                echo "Hi there"
+            }
+            // 'changed' means when the build status is different than the previous build's status.
+            changed {
+                echo "I'm different"
+            }
+            // 'success', 'failure', 'unstable' all run if the current build status is successful, failed, or unstable, respectively
+            success {
+                echo "I succeeded"
+                archive "**/*"
             }
         }
     }
