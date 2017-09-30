@@ -1,12 +1,13 @@
 // https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/Syntax-Reference
-//
+// https://jenkins.io/doc/book/pipeline/syntax/#parallel
+// https://jenkins.io/doc/book/pipeline/syntax/#post
 pipeline {
     agent any
     environment {
         REPO = 'fjudith/jenkins'
     }
     stages {
-        stage ('Prepare') {
+        stage ('Chekout') {
             steps {
                 script {
                     if ("${BRANCH_NAME}" == "master"){
@@ -20,6 +21,7 @@ pipeline {
                         SLAVE = "${BRANCH_NAME}-slave"
                     }
                 }
+                checkout scm
                 stash name: 'everything',
                       includes: '**'
             }
@@ -27,7 +29,7 @@ pipeline {
         stage ('Docker build'){
             parallel {
                 stage ('Jenkins Application server') {
-                    agent { label 'linux'}
+                    agent { label 'docker'}
                     steps {
                         sh 'rm -rf *'
                         unstash 'everything'
@@ -36,7 +38,7 @@ pipeline {
                     }
                 }
                 stage ('Jenkins Nginx server') {
-                    agent { label 'linux'}
+                    agent { label 'docker'}
                     steps {
                         sh 'rm -rf *'
                         unstash 'everything'
@@ -45,7 +47,7 @@ pipeline {
                     }
                 }
                 stage ('Jenkins Slave agent') {
-                    agent { label 'linux'}
+                    agent { label 'docker'}
                     steps {
                         sh 'rm -rf *'
                         unstash 'everything'
@@ -57,18 +59,21 @@ pipeline {
         }
     }
     post {
-        // 'always' means... Well... always run.
         always {
-            echo "Hi there"
+            echo 'Run regardless of the completion status of the Pipeline run.'
         }
-        // 'changed' means when the build status is different than the previous build's status.
         changed {
-            echo "I'm different"
+            echo 'Only run if the current Pipeline run has a different status from the previously completed Pipeline.'
         }
-        // 'success', 'failure', 'unstable' all run if the current build status is successful, failed, or unstable, respectively
         success {
-            echo "I succeeded"
+            echo 'Only run if the current Pipeline has a "success" status, typically denoted in the web UI with a blue or green indication.'
             archive "**/*"
+        }
+        unstable {
+            echo 'Only run if the current Pipeline has an "unstable" status, usually caused by test failures, code violations, etc. Typically denoted in the web UI with a yellow indication.'
+        }
+        aborted {
+            echo 'Only run if the current Pipeline has an "aborted" status, usually due to the Pipeline being manually aborted. Typically denoted in the web UI with a gray indication.'
         }
     }
 }
