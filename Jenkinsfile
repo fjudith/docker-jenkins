@@ -26,7 +26,6 @@ pipeline {
                         SLAVE = "${BRANCH_NAME}-slave"
                     }
                 }
-                }
                 sh 'printenv'
             }
         }
