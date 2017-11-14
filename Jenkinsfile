@@ -92,11 +92,12 @@ pipeline {
                 sleep 60
                 // Internal
                 sh "docker exec jenkins-${BUILD_NUMBER} /bin/bash -c 'curl -iL -X GET http://localhost:8080'"
-                sh "docker exec slave-${BUILD_NUMBER} /bin/bash -c 'ss -an'"
+                sh "docker logs slave-${BUILD_NUMBER}"
                 sh "docker exec nginx-${BUILD_NUMBER} /bin/bash -c 'curl -iL -X GET -u admin:admin http://localhost:80'"
                 // Cross Container
-                sh "docker exec ${DOCKER_SLAVE} /bin/bash -c 'curl -iL -X GET http://${DOCKER_JENKINS}:8080'"
-                sh "docker exec ${DOCKER_SLAVE} /bin/bash -c 'curl -iL -X GET http://${DOCKER_JENKINS}:50000'"
+                // Cannot test slave since token is not generated
+                // sh "docker exec ${DOCKER_SLAVE} /bin/bash -c 'curl -iL -X GET http://${DOCKER_JENKINS}:8080'"
+                // sh "docker exec ${DOCKER_SLAVE} /bin/bash -c 'curl -iL -X GET http://${DOCKER_JENKINS}:50000'"
                 sh "docker exec ${DOCKER_NGINX} /bin/bash -c 'curl -iL -X GET http://${DOCKER_JENKINS}:8080'"
                 // External
                 sh "docker run --rm --network jenkins-${BUILD_NUMBER} blitznote/debootstrap-amd64:17.04 bash -c 'curl -i -X GET http://${DOCKER_NGINX}:80'"
