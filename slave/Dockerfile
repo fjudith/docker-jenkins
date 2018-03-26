@@ -38,7 +38,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
 ENV MAVEN_HOME=/usr/share/maven
 
 # Install Ant
-ENV ANT_VERSION=1.9.9
+ENV ANT_VERSION=1.10.2
 
 RUN curl -fsSL https://www.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-ant-$ANT_VERSION /usr/share/ant \
@@ -59,10 +59,10 @@ RUN wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/
 
 
 # Install Docker
-ENV DOCKER_VERSION=1.12.6
-ENV DOCKER_COMPOSE_VERSION=1.16.1
+ENV DOCKER_VERSION=18.03.0-ce
+ENV DOCKER_COMPOSE_VERSION=1.20.0
 
-RUN curl -fsSL https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION.tgz | tar --strip-components=1 -xz -C /usr/local/bin docker/docker \
+RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar --strip-components=1 -xz -C /usr/local/bin docker/docker \
     && curl -fsSL https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose \
     && groupadd docker \
