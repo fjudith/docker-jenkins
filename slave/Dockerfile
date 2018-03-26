@@ -25,11 +25,11 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 # Kubernetes CLI
 # See http://kubernetes.io/v1.0/docs/getting-started-guides/aws/kubectl.html
-ENV KUBCTL_VERSION=1.7.0
-RUN curl https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+ENV KUBCTL_VERSION=1.9.4
+RUN curl https://storage.googleapis.com/kubernetes-release/release/v${KUBCTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # Install Maven
-ENV MAVEN_VERSION=3.3.9
+ENV MAVEN_VERSION=3.5.3
 
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
@@ -69,7 +69,7 @@ RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DO
     && usermod -aG docker jenkins
 
 # Install JMETER
-ENV JMETER_VERSION=3.1
+ENV JMETER_VERSION=4.0
 
 RUN mkdir /opt/jmeter \
       && wget --no-verbose -O - "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz" \
