@@ -25,7 +25,7 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 # Kubernetes CLI
 # See http://kubernetes.io/v1.0/docs/getting-started-guides/aws/kubectl.html
-ENV KUBCTL_VERSION=1.9.4
+ENV KUBCTL_VERSION=1.10.0
 RUN curl https://storage.googleapis.com/kubernetes-release/release/v${KUBCTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # Install Maven
@@ -38,7 +38,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
 ENV MAVEN_HOME=/usr/share/maven
 
 # Install Ant
-ENV ANT_VERSION=1.10.2
+ENV ANT_VERSION=1.10.3
 
 RUN curl -fsSL https://www.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-ant-$ANT_VERSION /usr/share/ant \
