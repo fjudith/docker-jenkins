@@ -59,7 +59,7 @@ RUN wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/
 
 
 # Install Docker
-ENV DOCKER_VERSION=18.03.0-ce
+ENV DOCKER_VERSION=18.06.1-ce
 ENV DOCKER_COMPOSE_VERSION=1.20.0
 
 RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar --strip-components=1 -xz -C /usr/local/bin docker/docker \
