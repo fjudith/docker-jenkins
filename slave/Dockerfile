@@ -29,7 +29,7 @@ ENV KUBCTL_VERSION=1.12.2
 RUN curl https://storage.googleapis.com/kubernetes-release/release/v${KUBCTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # Install Maven
-ENV MAVEN_VERSION=3.5.3
+ENV MAVEN_VERSION=3.6.0
 
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
