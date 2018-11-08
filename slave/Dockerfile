@@ -25,11 +25,7 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 # Kubernetes CLI
 # See http://kubernetes.io/v1.0/docs/getting-started-guides/aws/kubectl.html
-<<<<<<< HEAD
 ENV KUBCTL_VERSION=1.12.2
-=======
-ENV KUBCTL_VERSION=1.10.0
->>>>>>> c81185968c26bd01fb2df2d473289b630a150b8f
 RUN curl https://storage.googleapis.com/kubernetes-release/release/v${KUBCTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # Install Maven
