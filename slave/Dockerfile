@@ -73,7 +73,7 @@ RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DO
     && usermod -aG docker jenkins
 
 # Install JMETER
-ENV JMETER_VERSION=4.0
+ENV JMETER_VERSION=5.0
 
 RUN mkdir /opt/jmeter \
       && wget --no-verbose -O - "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz" \
