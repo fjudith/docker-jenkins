@@ -55,9 +55,6 @@ RUN wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/
     && mv /usr/share/gradle-${GRADLE_VERSION} /usr/share/gradle \
     && ln -s /usr/share/gradle/bin/gradle /usr/bin/gradle
 
-
-
-
 # Install Docker
 ENV DOCKER_VERSION=18.06.1-ce
 ENV DOCKER_COMPOSE_VERSION=1.23.1
