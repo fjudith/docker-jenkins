@@ -47,7 +47,7 @@ RUN curl -fsSL https://www.apache.org/dist/ant/binaries/apache-ant-$ANT_VERSION-
 ENV ANT_HOME=/usr/share/ant
 
 # Install Gradle
-ENV GRADLE_VERSION 4.6
+ENV GRADLE_VERSION 4.10.2
 
 RUN wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && unzip gradle.zip -d /usr/share/ \
