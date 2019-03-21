@@ -1,5 +1,4 @@
 version: '3'
-
 volumes:
   jenkins-data:
 
@@ -13,20 +12,24 @@ networks:
 services:
   jenkins:
     image: fjudith/jenkins:latest
+    container_name: jenkins
     networks:
       - jenkins
-    # ports:
-    #   - 8080/tcp
-    #   - 50000/tcp
+    ports:
+      - 58080:8080/tcp
+      - 50000:50000/tcp
     environment:
       JAVA_OPTS: "-Xmx512m"
     volumes:
     - jenkins-data:/var/jenkins_home
-
-  jenkins-nginx:
+  
+  nginx:
     image: fjudith/jenkins:nginx
+    container_name: nginx
+    depends_on:
+      - jenkins
     networks:
       - jenkins
       - traefik_proxy
-    # ports:
-    #   - 80/tcp
+    ports:
+      - 50080:80/tcp

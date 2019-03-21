@@ -26,6 +26,7 @@ networks:
 services:
   jenkins:
     image: fjudith/jenkins:latest
+    container_name: jenkins
     networks:
       - jenkins
     ports:
@@ -35,8 +36,11 @@ services:
       JAVA_OPTS: "-Xmx512m"
     volumes:
     - jenkins-data:/var/jenkins_home
-  jenkins-nginx:
+  nginx:
     image: fjudith/jenkins:nginx
+    container_name: nginx
+    depends_on:
+      - jenkins
     networks:
       - jenkins
       - traefik_proxy
