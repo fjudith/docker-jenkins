@@ -1,0 +1,32 @@
+version: '3'
+
+volumes:
+  jenkins-data:
+
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+  jenkins:
+    driver: bridge
+
+services:
+  jenkins:
+    image: fjudith/jenkins:latest
+    networks:
+      - jenkins
+    # ports:
+    #   - 8080/tcp
+    #   - 50000/tcp
+    environment:
+      JAVA_OPTS: "-Xmx512m"
+    volumes:
+    - jenkins-data:/var/jenkins_home
+
+  jenkins-nginx:
+    image: fjudith/jenkins:nginx
+    networks:
+      - jenkins
+      - traefik_proxy
+    # ports:
+    #   - 80/tcp

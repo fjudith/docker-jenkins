@@ -14,25 +14,34 @@ Run the Jenkins image
 In production environment, it recommended to pair Jenkins with a Nginx fronted webserver.
 
 ```yaml
-version: '2'
+version: '3'
+volumes:
+  jenkins-data:
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+  jenkins:
+    driver: bridge
 services:
   jenkins:
-    image: fjudith/jenkins
+    image: fjudith/jenkins:latest
+    networks:
+      - jenkins
     ports:
-    - 32731:8080/tcp
-    - 32732:50000/tcp
+      - 8080/tcp
+      - 50000/tcp
+    environment:
+      JAVA_OPTS: "-Xmx512m"
     volumes:
     - jenkins-data:/var/jenkins_home
-    - jenkins-log:/var/log/jenkins
-
   jenkins-nginx:
     image: fjudith/jenkins:nginx
+    networks:
+      - jenkins
+      - traefik_proxy
     ports:
-    - 32733:80/tcp
-    links:
-    - jenkins:jenkins-master
-    volumes:
-    - jenkins-nginx-log:/var/log/nginx
+      - 80/tcp
 ```
 
 # Reference
