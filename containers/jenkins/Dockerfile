@@ -6,14 +6,13 @@ LABEL maintainer="Florian JUDITH <florian.judith.b@gmail.com>"
 # http://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
 ENV JAVA_OPTS="-Xmx8192m"
 # http://winstone.sourceforge.net/#commandLine
-ENV JENKINS_OPTS="--handlerCountMax=300"
-#ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log"
+# ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log"
 
 # Enable access log
 ENV JENKINS_ACCESSLOG="--accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access.log"
 
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+COPY files/plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /bin/jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
 # Create Jenkins Log Folder
 USER root

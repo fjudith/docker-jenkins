@@ -3,33 +3,35 @@ volumes:
   jenkins-data:
 
 networks:
-  traefik_proxy:
-    external:
-      name: traefik_proxy
   jenkins:
     driver: bridge
 
 services:
   jenkins:
-    image: fjudith/jenkins:latest
+    build:
+      context: containers/jenkins
+      dockerfile: Dockerfile
+    image: oci.local/jenkins/server:lts
     container_name: jenkins
     networks:
       - jenkins
     ports:
       - 58080:8080/tcp
-      - 50000:50000/tcp
+      - 50001:50001/tcp
     environment:
-      JAVA_OPTS: "-Xmx512m"
+      JAVA_OPTS: "-Xmx2048m"
     volumes:
     - jenkins-data:/var/jenkins_home
   
   nginx:
-    image: fjudith/jenkins:nginx
+    build:
+      context: containers/nginx
+      dockerfile: Dockerfile
+    image: oci.local/jenkins/nginx:stable
     container_name: nginx
     depends_on:
       - jenkins
     networks:
       - jenkins
-      - traefik_proxy
     ports:
       - 50080:80/tcp
